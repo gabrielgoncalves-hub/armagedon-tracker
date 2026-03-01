@@ -26,4 +26,4 @@ Recentemente, o projeto recebeu uma atualização na lógica de sincronização:
 
 1. Faça o clone deste repositório:
    ```bash
-   git clone [https://github.com/gabrielgoncalves-hub/armagedon-tracker.git](https://github.com/gabrielgoncalves-hub/armagedon-tracker.git)
+   git clone https://github.com/gabrielgoncalves-hub/armagedon-tracker.git
