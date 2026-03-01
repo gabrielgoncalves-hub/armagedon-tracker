@@ -13,6 +13,7 @@ body {
     background-color: #F8F8F3;
     background-blend-mode: overlay;
     gap: 30px;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .cabecalho {
@@ -47,6 +48,7 @@ body {
     align-items: center;
     align-items: center;
     justify-content: center;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 #botao-alerta {
@@ -58,6 +60,7 @@ body {
     background-color: #FFFE7E;
     color: #000000;
     cursor: pointer;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 #botao-alerta:hover {
@@ -87,6 +90,7 @@ body {
     background-color: #FFFE7E;
     color: #000000;
     cursor: pointer;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 #botao:hover {
@@ -105,6 +109,7 @@ body {
 #ids {
     text-align: start;
     color: #FFFE7E;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .asteroid-card {
@@ -115,6 +120,7 @@ body {
     width: 100%;
     box-sizing: border-box;
     animation: fadeIn 0.5s ease-in-out;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 @keyframes fadeIn {
@@ -191,4 +197,57 @@ iframe {
 
 .mapa {
     padding-bottom: 10px;
+}
+
+body.dark-mode {
+    background-color: black;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body.dark-mode .principal {
+    background-color: #FFFE7E;
+    color: black;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body.dark-mode #botao, 
+body.dark-mode #botao-alerta {
+    background-color: black;
+    color: #FFFE7E;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body.dark-mode .asteroid-card {
+    background-color: black;
+    color: #FFFE7E;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+body.dark-mode #ids {
+    color: #000000;
+}
+
+.icone-tema {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    z-index: 1000; 
+}
+
+.icone-tema .sol {
+    display: none;
+    fill: #FFFE7E;
+}
+
+.icone-tema .lua {
+    fill: black; 
+}
+
+body.dark-mode .icone-tema .lua {
+    display: none;
+}
+
+body.dark-mode .icone-tema .sol {
+    display: block;
 }
