@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Armagedon Tracker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="principal">
+        <div class="cabecalho-logo">
+            <h1>Armagedon Tracker</h1>
+        </div>
+        <div class="principal-buscar">
+            <input type="number" id="id_asteroid" placeholder="Digite o ID">
+            <input type="button" value="Enviar" onclick="mostrarAsteroid()" id="botao">
+            <input type="button" value="Perigosos Hoje" onclick="buscarPerigososHoje()" id="botao-alerta">
+        </div>
+
+        <div class="principal-asteroid"></div>   
+        
+        <a href="sbdb_query_results.csv" download id="ids">Baixe os IDs dos Asteroids</a>
+
+    </main>
+    
+    <section class="rodape">
+        <div class="mapa">
+            <iframe src="https://eyes.nasa.gov/apps/asteroids/" id="meu-iframe-nasa" width="100%" height="500px" frameborder="0"></iframe>
+        </div>
+    </section>
+    
+    <script src="script.js"></script>
+</body>
+</html>

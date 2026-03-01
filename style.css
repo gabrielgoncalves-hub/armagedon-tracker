@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    background-color: #F8F8F3;
+    background-blend-mode: overlay;
+    gap: 30px;
+}
+
+.cabecalho {
+    display: flex;
+    flex-direction: column;
+    height: 65px;
+    width: 400px;
+    background-color: #000000;
+    color: #FFFE7E;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 30px;
+}
+
+.cabecalho-logo {
+    text-align: center;
+}
+
+.principal {
+    width: 450px;
+    min-height: 50px; 
+    height: auto; 
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #000000;
+    padding: 30px;
+    border-radius: 10px;
+    color: #FFFE7E;
+    align-items: center;
+    align-items: center;
+    justify-content: center;
+}
+
+#botao-alerta {
+    width: 80px;
+    font-size: 11px;
+    height: 30px;
+    border-radius: 30px;
+    border-style: none;
+    background-color: #FFFE7E;
+    color: #000000;
+    cursor: pointer;
+}
+
+#botao-alerta:hover {
+    background-color: #c0392b;
+    transform: scale(1.05);
+    transition: 0.2s;
+}
+
+.principal-buscar {
+    display: flex;
+    gap: 15px;
+}
+
+#id_asteroid {
+    width: 270px;
+    height: 30px;
+    border-radius: 15px;
+    padding-left: 10px;
+    border-style: none;
+}
+
+#botao {
+    width: 80px;
+    height: 30px;
+    border-radius: 30px;
+    border-style: none;
+    background-color: #FFFE7E;
+    color: #000000;
+    cursor: pointer;
+}
+
+#botao:hover {
+    background-color: #e6e571;
+    transform: scale(1.05);
+    transition: 0.2s;
+}
+
+.rodape {
+    display: flex;
+    justify-content: flex-start;
+    color: #000000;
+    margin-top: 15px;
+}
+
+#ids {
+    text-align: start;
+    color: #FFFE7E;
+}
+
+.asteroid-card {
+    background: #1a1a1a;
+    border: 1px solid #FFFE7E;
+    border-radius: 12px;
+    padding: 15px;
+    width: 100%;
+    box-sizing: border-box;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 254, 126, 0.3);
+    padding-bottom: 10px;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.badge.safe { background: #2ecc71; color: #fff; }
+.badge.danger { background: #e74c3c; color: #fff; }
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 15px;
+    border-top: 1px solid rgba(255, 254, 126, 0.2);
+    padding-top: 15px;
+}
+
+.card-body-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+    border-top: 1px solid rgba(255, 254, 126, 0.2);
+    padding-top: 15px;
+}
+
+.info-item {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+}
+
+.info-item strong {
+    color: #fff;
+    margin-top: 4px;
+}
+
+.asteroid-card p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.rodape {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+iframe {
+    border-radius: 10px;
+    min-height: 500px;
+    max-height: 900px;
+    min-width: 900px;
+}
+
+.mapa {
+    padding-bottom: 10px;
+}
