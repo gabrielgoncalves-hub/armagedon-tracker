@@ -157,7 +157,7 @@ iframe {
     }
 
     .badge {
-        font-size: 0.6rem; /* Badge menor */
+        font-size: 1rem; /* Badge menor */
     }
 
     .card-body-grid {
