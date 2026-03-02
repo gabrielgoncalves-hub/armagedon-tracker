@@ -9,7 +9,13 @@ O **Armagedon Tracker** é uma aplicação web de monitorização espacial que c
 * **CSS Moderno**: Arquitetura de layout baseada em **CSS Grid** e **Flexbox** para visualização de métricas técnicas.
 * **Integração de APIs REST**: Autenticação e consumo de endpoints estruturados da NASA.
 
-<img width="1920" height="1200" alt="Screenshot_20260228_230950" src="https://github.com/user-attachments/assets/1c3c0424-00f0-4562-83c0-b51107d86c7b" />
+<img width="1920" height="1080" alt="Screenshot_20260301_142050" src="https://github.com/user-attachments/assets/7a5867cb-4e56-4973-8e54-021a5387cec8" />
+<hr>
+<img width="1920" height="1080" alt="Screenshot_20260301_142038" src="https://github.com/user-attachments/assets/684b8b60-877f-4fef-8b6a-4611ec87e3e0" />
+<hr>
+<img width="1920" height="1080" alt="Screenshot_20260301_142018" src="https://github.com/user-attachments/assets/19f0aa68-554b-49d8-a150-0e38813b9473" />
+<hr>
+<img width="1920" height="1080" alt="Screenshot_20260301_141543" src="https://github.com/user-attachments/assets/f6ee11ca-d708-4fb6-9bc3-bf5f02c51c84" />
 
 ## ✨ Funcionalidades Principais
 
