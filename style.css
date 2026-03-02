@@ -1,126 +1,102 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
     height: 100vh;
+    width: 100vw;
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: row;
-    background-color: #F8F8F3;
-    background-blend-mode: overlay;
-    gap: 30px;
+    background-color: white;
+    overflow: hidden; 
     transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-.cabecalho {
-    display: flex;
-    flex-direction: column;
-    height: 65px;
-    width: 400px;
-    background-color: #000000;
-    color: #FFFE7E;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    padding: 30px;
-}
-
-.cabecalho-logo {
-    text-align: center;
 }
 
 .principal {
-    width: 450px;
-    min-height: 50px; 
-    height: auto; 
+    width: 450px; 
+    height: 100vh;
+    background-color: #000000;
+    color: #FFFE7E;
+    padding: 40px 30px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 20px;
-    background-color: #000000;
-    padding: 30px;
-    border-radius: 10px;
-    color: #FFFE7E;
-    align-items: center;
-    align-items: center;
-    justify-content: center;
+    overflow-y: auto; 
+    z-index: 10;
     transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-#botao-alerta {
-    width: 80px;
-    font-size: 11px;
-    height: 30px;
-    border-radius: 30px;
-    border-style: none;
-    background-color: #FFFE7E;
-    color: #000000;
-    cursor: pointer;
-    transition: background-color 0.4s ease, color 0.4s ease;
+.rodape {
+    flex-grow: 1; 
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
-#botao-alerta:hover {
-    background-color: #c0392b;
-    transform: scale(1.05);
-    transition: 0.2s;
+.mapa {
+    width: 100%;
+    height: 100%;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.cabecalho-logo h1 {
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 10px;
 }
 
 .principal-buscar {
     display: flex;
-    gap: 15px;
+    gap: 10px;
+    width: 100%;
+    justify-content: center;
 }
 
 #id_asteroid {
-    width: 270px;
-    height: 30px;
+    flex-grow: 1;
+    height: 35px;
     border-radius: 15px;
-    padding-left: 10px;
-    border-style: none;
+    padding-left: 15px;
+    border: none;
+    outline: none;
 }
 
-#botao {
-    width: 80px;
-    height: 30px;
+#botao, #botao-alerta {
+    padding: 0 15px;
+    height: 35px;
     border-radius: 30px;
-    border-style: none;
+    border: none;
     background-color: #FFFE7E;
     color: #000000;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.4s ease, color 0.4s ease;
+    transition: all 0.3s ease;
 }
 
-#botao:hover {
+#botao:hover, #botao-alerta:hover {
     background-color: #e6e571;
     transform: scale(1.05);
-    transition: 0.2s;
-}
-
-.rodape {
-    display: flex;
-    justify-content: flex-start;
-    color: #000000;
-    margin-top: 15px;
-}
-
-#ids {
-    text-align: start;
-    color: #FFFE7E;
-    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 .asteroid-card {
-    background: #1a1a1a;
+    background: transparent;
     border: 1px solid #FFFE7E;
     border-radius: 12px;
-    padding: 15px;
+    padding: 20px;
     width: 100%;
-    box-sizing: border-box;
+    display: flex; 
+    flex-direction: column; 
+    gap: 10px;
     animation: fadeIn 0.5s ease-in-out;
-    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 @keyframes fadeIn {
@@ -134,34 +110,22 @@ body {
     align-items: center;
     border-bottom: 1px solid rgba(255, 254, 126, 0.3);
     padding-bottom: 10px;
+    margin-bottom: 5px;
 }
 
-.badge {
-    padding: 4px 8px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    text-transform: uppercase;
-}
-.badge.safe { background: #2ecc71; color: #fff; }
-.badge.danger { background: #e74c3c; color: #fff; }
-
-.card-body {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 15px;
-    border-top: 1px solid rgba(255, 254, 126, 0.2);
-    padding-top: 15px;
+.asteroid-card p {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 2px 0;
 }
 
 .card-body-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    margin-top: 15px;
-    border-top: 1px solid rgba(255, 254, 126, 0.2);
+    margin-top: 10px;
     padding-top: 15px;
+    border-top: 1px solid rgba(255, 254, 126, 0.2);
 }
 
 .info-item {
@@ -175,79 +139,140 @@ body {
     margin-top: 4px;
 }
 
-.asteroid-card p {
-    margin: 5px 0;
+#ids {
+    color: #FFFE7E;
+    text-decoration: none;
     font-size: 0.9rem;
-    line-height: 1.4;
+    margin-top: auto; 
 }
 
-.rodape {
+.card-footer {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    justify-content: center
 }
 
-iframe {
-    border-radius: 10px;
-    min-height: 500px;
-    max-height: 900px;
-    min-width: 900px;
+.link-nasa {
+    color: #FFFE7E;
 }
 
-.mapa {
-    padding-bottom: 10px;
+.alerta-proximidade {
+    background-color: rgba(231, 76, 60, 0.2);
+    border: 1px solid #e74c3c;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #FFFE7E; 
+}
+
+.alerta-proximidade span {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+}
+
+.clima-container {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.05); 
+    border: 1px solid #FFFE7E;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    color: #FFFE7E;
+    transition: all 0.4s ease;
+}
+
+#clima-cidade {
+    font-weight: bold;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.7;
+}
+
+#clima-temp {
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 5px 0;
+}
+
+.status-obs {
+    margin-top: 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 6px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.5); 
+}
+
+body.dark-mode .clima-container {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #000;
+
+}
+
+body.dark-mode .status-obs {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.dark-mode .alerta-proximidade {
+    color: #000;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 body.dark-mode {
     background-color: black;
-    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body.dark-mode .principal {
     background-color: #FFFE7E;
     color: black;
-    transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-body.dark-mode #botao, 
-body.dark-mode #botao-alerta {
-    background-color: black;
-    color: #FFFE7E;
-    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body.dark-mode .asteroid-card {
+    border-color: black;
+    color: black;
+}
+
+body.dark-mode .asteroid-card strong {
+    color: black;
+}
+
+body.dark-mode .card-header {
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .card-body-grid {
+    border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode #botao, body.dark-mode #botao-alerta {
     background-color: black;
     color: #FFFE7E;
-    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 body.dark-mode #ids {
     color: #000000;
 }
 
+body.dark-mode .link-nasa {
+    color: black;
+}
+
 .icone-tema {
     position: absolute;
     top: 20px;
-    right: 20px;
+    left: 20px; 
     cursor: pointer;
-    z-index: 1000; 
+    z-index: 1001;
 }
 
-.icone-tema .sol {
-    display: none;
-    fill: #FFFE7E;
-}
-
-.icone-tema .lua {
-    fill: black; 
-}
-
-body.dark-mode .icone-tema .lua {
-    display: none;
-}
-
-body.dark-mode .icone-tema .sol {
-    display: block;
-}
+body.dark-mode .icone-tema .lua { display: none; }
+body.dark-mode .icone-tema .sol { display: block; fill: black; }
+.icone-tema .sol { display: none; }
+.icone-tema .lua { fill: #FFFE7E; }

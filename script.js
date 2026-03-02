@@ -1,12 +1,37 @@
 const api_key = "6oaOhff67yHUTYX1lt0MP0Fn4DPcgKck8Yk4p9JC";
 
 function renderizarCard(dados) {
+    const isPerigoso = dados.is_potentially_hazardous_asteroid;
     const maxDiam = dados.estimated_diameter.meters.estimated_diameter_max;
     const minDiam = dados.estimated_diameter.meters.estimated_diameter_min;
-    const isPerigoso = dados.is_potentially_hazardous_asteroid;
-    const velocidade = parseFloat(dados.close_approach_data[0].relative_velocity.kilometers_per_hour).toLocaleString('pt-BR');
-    const distanciaLunar = parseFloat(dados.close_approach_data[0].miss_distance.lunar).toFixed(1);
-    const orbitaTipo = dados.orbital_data?.orbit_class?.orbit_class_type || "N/A";
+    
+    const aproximacaoAtual = dados.close_approach_data[0];
+    const velocidade = parseFloat(aproximacaoAtual.relative_velocity.kilometers_per_hour).toLocaleString('pt-BR');
+    const distanciaLunar = parseFloat(aproximacaoAtual.miss_distance.lunar).toFixed(1);
+    
+    const dataDescBrasil = dados.orbital_data.first_observation_date.split('-').reverse().join('/');
+    
+    const incerteza = dados.orbital_data.orbit_uncertainty;
+    const confianca = incerteza <= 1 ? "Máxima" : incerteza <= 4 ? "Alta" : "Moderada";
+
+    let proximaDataHtml = "";
+    if (isPerigoso) {
+        const hoje = new Date();
+        const proximaAproximacao = dados.close_approach_data.find(ap => {
+            const dataAp = new Date(ap.close_approach_date);
+            return dataAp > hoje;
+        });
+
+        if (proximaAproximacao) {
+            const dataProxBrasil = proximaAproximacao.close_approach_date.split('-').reverse().join('/');
+            proximaDataHtml = `
+                <div class="alerta-proximidade">
+                    <span>⚠️ Próxima Aproximação Máxima:</span>
+                    <strong>${dataProxBrasil}</strong>
+                </div>
+            `;
+        }
+    }
 
     return `
         <div class="asteroid-card">
@@ -16,18 +41,23 @@ function renderizarCard(dados) {
                     ${isPerigoso ? 'PERIGOSO' : 'SEGURO'}
                 </span>
             </div>
-            <div class="card-body">
-                <div class="info-row"><span>Diâmetro Máximo:</span> <strong>${maxDiam.toFixed(2)} m</strong></div>
-                <div class="info-row"><span>Diâmetro Mínimo:</span> <strong>${minDiam.toFixed(2)} m</strong></div>
+
+            <div class="card-diametros">
+                <p>Descoberto em: <strong>${dataDescBrasil}</strong></p>
+                <p>Diâmetro Máx: <strong>${maxDiam.toFixed(2)} m</strong></p>
             </div>
+
+            ${proximaDataHtml}
+
             <div class="card-body-grid">
                 <div class="info-item"><span>🚀 Velocidade</span><strong>${velocidade} km/h</strong></div>
                 <div class="info-item"><span>🌙 Distância</span><strong>${distanciaLunar}x Lua</strong></div>
-                <div class="info-item"><span>🔭 Classe</span><strong>${orbitaTipo}</strong></div>
+                <div class="info-item"><span>🔭 Confiança</span><strong>${confianca}</strong></div>
                 <div class="info-item"><span>✨ Magnitude</span><strong>${dados.absolute_magnitude_h}</strong></div>
             </div>
+            
             <div style="text-align: center; margin-top: 15px;">
-                <a style="color: #FFFE7E;" href="${dados.nasa_jpl_url}" target="_blank" class="link-nasa">Ver detalhes no site da NASA</a>
+                <a href="${dados.nasa_jpl_url}" target="_blank" style="color: inherit; font-size: 0.8rem;">Ver detalhes no site da NASA</a>
             </div>
         </div>
     `;
@@ -38,25 +68,33 @@ async function mostrarAsteroid() {
     let container = document.querySelector(".principal-asteroid");
     let iframe = document.getElementById("meu-iframe-nasa");
 
+    if (!id) return;
+
     try {
         const response = await fetch(`https://api.nasa.gov/neo/rest/v1/neo/${id}?api_key=${api_key}`);
         if (!response.ok) throw new Error("ID não encontrado");
         const dados = await response.json();
-        let nomeOriginal = dados.name;
-        let nomeTratado = nomeOriginal
+        let nomeTratado = dados.name
             .replace(/[()]/g, "")   
             .trim()                
             .toLowerCase()       
             .replace(/\s+/g, "_");
 
         container.innerHTML = renderizarCard(dados);
-        console.log(nomeTratado)
+        console.log(dados)
 
         if (iframe) {
             iframe.src = `https://eyes.nasa.gov/apps/asteroids/#/${nomeTratado}`;
         }
     } catch (erro) {
         container.innerHTML = `<p style="color: red;">Erro: ${erro.message}</p>`;
+    }
+}
+
+function resetarMapa() {
+    const iframe = document.getElementById("meu-iframe-nasa");
+    if (iframe) {
+        iframe.src = "https://eyes.nasa.gov/apps/asteroids/";
     }
 }
 
@@ -71,7 +109,6 @@ async function buscarPerigososHoje() {
         const dados = await response.json();
         
         const asteroidesHoje = dados.near_earth_objects[hoje];
-        
         const perigosos = asteroidesHoje.filter(a => a.is_potentially_hazardous_asteroid === true);
 
         if (perigosos.length > 0) {
@@ -83,3 +120,33 @@ async function buscarPerigososHoje() {
         container.innerHTML = "<p>Erro ao conectar com a NASA.</p>";
     }
 }
+
+const weather_key = "1ab579b25b06552a1976828bab62cb6f";
+
+async function atualizarClima() {
+    const cidade = "Braganca Paulista";
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${weather_key}&units=metric&lang=pt_br`;
+
+    try {
+        const response = await fetch(url);
+        const dados = await response.json();
+
+        document.getElementById("clima-cidade").innerText = dados.name;
+        document.getElementById("clima-temp").innerText = `${Math.round(dados.main.temp)}°C`;
+        document.getElementById("clima-desc").innerText = dados.weather[0].description.toUpperCase();
+
+        const statusObs = document.getElementById("clima-status-obs");
+        if (dados.clouds.all < 30) {
+            statusObs.innerText = "🔭 Céu limpo: Ideal para observação!";
+            statusObs.style.color = "black";
+        } else {
+            statusObs.innerText = "☁️ Céu nublado: Visibilidade reduzida.";
+            statusObs.style.color = "black";
+        }
+
+    } catch (erro) {
+        document.getElementById("clima-cidade").innerText = "Erro ao carregar clima";
+    }
+}
+
+window.addEventListener('load', atualizarClima);
