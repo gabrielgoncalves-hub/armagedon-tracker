@@ -121,32 +121,46 @@ async function buscarPerigososHoje() {
     }
 }
 
-const weather_key = "1ab579b25b06552a1976828bab62cb6f";
+async function buscarClimaDinamico() {
+    const weather_key = "1ab579b25b06552a1976828bab62cb6f";;
 
-async function atualizarClima() {
-    const cidade = "Braganca Paulista";
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${cidade}&appid=${weather_key}&units=metric&lang=pt_br`;
+    if ("geolocation" in navigator) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+            const lat = position.coords.latitude;
+            const lon = position.coords.longitude;
 
+            const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weather_key}&units=metric&lang=pt_br`;
+            
+            await processarDadosClima(url);
+        }, async (erro) => {
+            console.warn("Localização negada. Usando Bragança Paulista como padrão.");
+            const urlPadrao = `https://api.openweathermap.org/data/2.5/weather?q=Braganca Paulista&appid=${weather_key}&units=metric&lang=pt_br`;
+            await processarDadosClima(urlPadrao);
+        });
+    }
+}
+
+async function processarDadosClima(url) {
     try {
         const response = await fetch(url);
         const dados = await response.json();
 
-        document.getElementById("clima-cidade").innerText = dados.name;
+        document.getElementById("clima-cidade").innerText = dados.name.toUpperCase();
         document.getElementById("clima-temp").innerText = `${Math.round(dados.main.temp)}°C`;
         document.getElementById("clima-desc").innerText = dados.weather[0].description.toUpperCase();
 
         const statusObs = document.getElementById("clima-status-obs");
         if (dados.clouds.all < 30) {
             statusObs.innerText = "🔭 Céu limpo: Ideal para observação!";
-            statusObs.style.color = "black";
+            statusObs.style.color = "#000000";
         } else {
             statusObs.innerText = "☁️ Céu nublado: Visibilidade reduzida.";
-            statusObs.style.color = "black";
+            statusObs.style.color = "#000000";
         }
-
     } catch (erro) {
-        document.getElementById("clima-cidade").innerText = "Erro ao carregar clima";
+        console.error("Erro na API de clima:", erro);
     }
 }
 
-window.addEventListener('load', atualizarClima);
+// Inicializa a busca ao carregar a página
+window.addEventListener('load', buscarClimaDinamico);
